@@ -1,0 +1,10 @@
+C:\Users\a9209\source\repos\NOTEPAD\bin\Debug\NOTEPAD.exe.config
+C:\Users\a9209\source\repos\NOTEPAD\bin\Debug\NOTEPAD.exe
+C:\Users\a9209\source\repos\NOTEPAD\bin\Debug\NOTEPAD.pdb
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.csproj.AssemblyReference.cache
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.Form1.resources
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.Properties.Resources.resources
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.csproj.GenerateResource.cache
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.csproj.CoreCompileInputs.cache
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.exe
+C:\Users\a9209\source\repos\NOTEPAD\obj\Debug\NOTEPAD.pdb
