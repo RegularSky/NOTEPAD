@@ -141,5 +141,70 @@ namespace NOTEPAD
                 MessageBox.Show("使用者取消了儲存檔案操作。", "訊息", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             }
         }
+        private Stack<string> textHistory = new Stack<string>();
+        private bool isUndoRedo = false;
+        private const int MaxHistoryCount = 10; // 最多紀錄10個紀錄
+        private Stack<string> undoStack = new Stack<string>();
+        private Stack<string> redoStack = new Stack<string>();
+        private void rtbText_TextChanged(object sender, EventArgs e)
+        {
+            if (isUndoRedo == false)
+            {
+                undoStack.Push(rtbText.Text); // 將當前的文本內容加入堆疊
+                redoStack.Clear();            // 清空重作堆疊
+
+                // 確保堆疊中只保留最多10個紀錄
+                if (undoStack.Count > MaxHistoryCount)
+                {
+                    // 用一個臨時堆疊，將除了最下面一筆的文字記錄之外，將文字紀錄堆疊由上而下，逐一移除再堆疊到臨時堆疊之中
+                    Stack<string> tempStack = new Stack<string>();
+                    for (int i = 0; i < MaxHistoryCount; i++)
+                    {
+                        tempStack.Push(undoStack.Pop());
+                    }
+                    undoStack.Clear(); // 清空堆疊
+                                       // 文字編輯堆疊紀錄清空之後，再將暫存堆疊（tempStack）中的資料，逐一放回到文字編輯堆疊紀錄
+                    foreach (string item in tempStack)
+                    {
+                        undoStack.Push(item);
+                    }
+                }
+                UpdateListBox(); // 更新 ListBox        
+            }
+        }
+        // 更新 ListBox
+        void UpdateListBox()
+        {
+            listUndo.Items.Clear();
+            int count = undoStack.Count;
+            foreach (string item in undoStack.Reverse())
+            {
+                listUndo.Items.Add($"第 {count--} 次：{item}");
+            }
+        }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            if (undoStack.Count > 1)
+            {
+                isUndoRedo = true;
+                redoStack.Push(undoStack.Pop()); // 將回復堆疊最上面的紀錄移出，再堆到重作堆疊
+                rtbText.Text = undoStack.Peek(); // 將回復堆疊最上面一筆紀錄顯示
+                UpdateListBox();
+                isUndoRedo = false;
+            }
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e)
+        {
+            if (redoStack.Count > 0)
+            {
+                isUndoRedo = true;
+                undoStack.Push(redoStack.Pop()); // 將重作堆疊最上面的紀錄移出，再堆到回復堆疊
+                rtbText.Text = undoStack.Peek(); // 將回復堆疊最上面一筆紀錄顯示
+                UpdateListBox();
+                isUndoRedo = false;
+            }
+        }
     }
 }
