@@ -185,7 +185,7 @@ namespace NOTEPAD
 
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            if (undoStack.Count > 1)
+            if (undoStack.Count >   1)
             {
                 isUndoRedo = true;
                 redoStack.Push(undoStack.Pop()); // 將回復堆疊最上面的紀錄移出，再堆到重作堆疊
